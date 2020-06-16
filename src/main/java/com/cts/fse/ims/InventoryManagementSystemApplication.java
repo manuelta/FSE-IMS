@@ -17,8 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class InventoryManagementSystemApplication {
 	
 	public static void main(String[] args) {
-		SpringApplication.run(InventoryManagementSystemApplication.class, args);
-		
+		SpringApplication.run(InventoryManagementSystemApplication.class, args);		
 	}
 	
 	@Bean

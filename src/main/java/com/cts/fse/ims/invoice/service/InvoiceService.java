@@ -36,6 +36,11 @@ public class InvoiceService {
 				.map( InvoiceDTO::of )
 				.orElse( null );
 	}
+	public InvoiceDTO findOneV2(Long invoiceId) {
+		return invoiceRepository.findById( invoiceId )
+				.map( InvoiceDTO::of )
+				.orElse( null );
+	}
 	
 	public List<InvoiceDTO> findAll() {
 		List<Invoice> products = (List<Invoice>) invoiceRepository.findAll();
@@ -43,6 +48,11 @@ public class InvoiceService {
 				.map( InvoiceDTO::of )
 				.collect( Collectors.toList() );
 	}
-	
+	public List<InvoiceDTO> findAllV2() {
+		List<Invoice> products = (List<Invoice>) invoiceRepository.findAll();
+		return products.stream()
+				.map( InvoiceDTO::of )
+				.collect( Collectors.toList() );
+	}
 	
 }

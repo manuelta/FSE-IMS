@@ -23,8 +23,8 @@ public class InvoiceService {
 	public InvoiceDTO update(Long invoiceId, InvoiceDTO invoiceDTO) {
 		Invoice invoice = invoiceDTO.toEntity();
 		invoice.setId( invoiceId );
-		Invoice updatedProduct = invoiceRepository.save( invoice );
-		return InvoiceDTO.of( updatedProduct );
+		Invoice updatedInvoice = invoiceRepository.save( invoice );
+		return InvoiceDTO.of( updatedInvoice );
 	}
 	
 	public void delete(Long invoiceId) {
@@ -43,14 +43,14 @@ public class InvoiceService {
 	}
 	
 	public List<InvoiceDTO> findAll() {
-		List<Invoice> products = (List<Invoice>) invoiceRepository.findAll();
-		return products.stream()
+		List<Invoice> invoices = (List<Invoice>) invoiceRepository.findAll();
+		return invoices.stream()
 				.map( InvoiceDTO::of )
 				.collect( Collectors.toList() );
 	}
 	public List<InvoiceDTO> findAllV2() {
-		List<Invoice> products = (List<Invoice>) invoiceRepository.findAll();
-		return products.stream()
+		List<Invoice> invoices = (List<Invoice>) invoiceRepository.findAll();
+		return invoices.stream()
 				.map( InvoiceDTO::of )
 				.collect( Collectors.toList() );
 	}

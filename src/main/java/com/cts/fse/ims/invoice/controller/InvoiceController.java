@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.fse.ims.invoice.DTO.InvoiceDTO;
 import com.cts.fse.ims.invoice.exception.RecordNotFoundException;
+import com.cts.fse.ims.invoice.helper.InvoiceConstants;
 import com.cts.fse.ims.invoice.service.InvoiceService;
 
 @RestController
@@ -48,7 +49,7 @@ public class InvoiceController {
 		LOGGER.info("get All for version 1 request initiated");
 		List<InvoiceDTO> invoices = invoiceService.findAll();
 		if(CollectionUtils.isEmpty(invoices)) {
-			throw new RecordNotFoundException("No record found");
+			throw new RecordNotFoundException(InvoiceConstants.RECORD_NOT_FOUND);
 		}
 		return ResponseEntity.ok(invoices);
 	}
@@ -58,7 +59,7 @@ public class InvoiceController {
 		LOGGER.info("get all for version 2 request initiated");
 		List<InvoiceDTO> invoices = invoiceService.findAllV2();
 		if(CollectionUtils.isEmpty(invoices)) {
-			throw new RecordNotFoundException("No record found");
+			throw new RecordNotFoundException(InvoiceConstants.RECORD_NOT_FOUND);
 		}
 		return ResponseEntity.ok(invoices);
 	}
@@ -68,7 +69,7 @@ public class InvoiceController {
 		LOGGER.info("get by ID version request initiated");
 		InvoiceDTO invoiceDTO = invoiceService.findOne( Long.parseLong( invoiceId ) );
 		if(null == invoiceDTO) {
-			throw new RecordNotFoundException("No record found");
+			throw new RecordNotFoundException(InvoiceConstants.RECORD_NOT_FOUND);
 		}
 		return ResponseEntity.ok(invoiceDTO);
 	}
@@ -77,7 +78,7 @@ public class InvoiceController {
 		LOGGER.info("get by ID  version 2 request initiated");
 		InvoiceDTO invoiceDTO = invoiceService.findOneV2( Long.parseLong( invoiceId ) );
 		if(null == invoiceDTO) {
-			throw new RecordNotFoundException("No record found");
+			throw new RecordNotFoundException(InvoiceConstants.RECORD_NOT_FOUND);
 		}
 		return ResponseEntity.ok(invoiceDTO);
 	}

@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.cts.fse.ims.invoice.DTO.InvoiceDTO;
+import com.cts.fse.ims.invoice.dto.InvoiceDTO;
 import com.cts.fse.ims.invoice.model.Invoice;
 import com.cts.fse.ims.invoice.repository.InvoiceRepository;
 

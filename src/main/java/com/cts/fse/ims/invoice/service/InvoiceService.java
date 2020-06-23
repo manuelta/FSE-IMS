@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cts.fse.ims.invoice.DTO.InvoiceDTO;
+import com.cts.fse.ims.invoice.dto.InvoiceDTO;
 import com.cts.fse.ims.invoice.model.Invoice;
 import com.cts.fse.ims.invoice.repository.InvoiceRepository;
 import org.springframework.cache.annotation.CacheEvict;
@@ -53,14 +53,14 @@ public class InvoiceService {
 	}
 	@Cacheable(value = "invoices")
 	public List<InvoiceDTO> findAll() {
-		List<Invoice> invoices = (List<Invoice>) invoiceRepository.findAll();
+		List<Invoice> invoices = invoiceRepository.findAll();
 		return invoices.stream()
 				.map( InvoiceDTO::of )
 				.collect( Collectors.toList() );
 	}
 	@Cacheable(value = "invoices")
 	public List<InvoiceDTO> findAllV2() {
-		List<Invoice> invoices = (List<Invoice>) invoiceRepository.findAll();
+		List<Invoice> invoices = invoiceRepository.findAll();
 		return invoices.stream()
 				.map( InvoiceDTO::of )
 				.collect( Collectors.toList() );

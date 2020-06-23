@@ -1,4 +1,4 @@
-package com.cts.fse.ims.invoice.DTO;
+package com.cts.fse.ims.invoice.dto;
 
 import java.util.Date;
 

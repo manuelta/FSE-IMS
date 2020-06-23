@@ -28,33 +28,33 @@ public class InvoiceController {
 	
 	@RequestMapping(value = "/v1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<InvoiceDTO> save(@RequestBody InvoiceDTO invoiceDto) {
-		LOGGER.info("Save request initiated");
+		LOGGER.info(InvoiceConstants.MESSAGE_IMS_SAVE);
 		return ResponseEntity.ok( invoiceService.save( invoiceDto ) );
 	}
 	
 	@RequestMapping(value = "{invoiceId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity update(@PathVariable String invoiceId, @RequestBody InvoiceDTO invoiceDto) {
-		LOGGER.info("update request initiated");
+		LOGGER.info(InvoiceConstants.MESSAGE_IMS_UPDATE);
 		return ResponseEntity.ok( invoiceService.update( Long.parseLong( invoiceId ), invoiceDto ) );
 	}
 	
 	@RequestMapping(value = "{invoiceId}", method = RequestMethod.DELETE)
 	public ResponseEntity delete(@PathVariable String invoiceId) {
-		LOGGER.info("delete request initiated");
+		LOGGER.info(InvoiceConstants.MESSAGE_IMS_DELETE);
 		invoiceService.delete( Long.parseLong( invoiceId ) );
 		return ResponseEntity.noContent().build();
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.DELETE)
 	public ResponseEntity deleteAll() {
-		LOGGER.info("delete all request initiated");
+		LOGGER.info(InvoiceConstants.MESSAGE_IMS_DELETE_ALL);
 		invoiceService.deleteAll();
 		return ResponseEntity.noContent().build();
 	}
 	
 	@RequestMapping(value = "/v1", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity get() {
-		LOGGER.info("get All for version 1 request initiated");
+		LOGGER.info(InvoiceConstants.MESSAGE_IMS_GET_V1);
 		List<InvoiceDTO> invoices = invoiceService.findAll();
 		if(CollectionUtils.isEmpty(invoices)) {
 			throw new RecordNotFoundException(InvoiceConstants.RECORD_NOT_FOUND);
@@ -64,7 +64,7 @@ public class InvoiceController {
 	
 	@RequestMapping(value = "/v2", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity getNew() {
-		LOGGER.info("get all for version 2 request initiated");
+		LOGGER.info(InvoiceConstants.MESSAGE_IMS_GET_V2);
 		List<InvoiceDTO> invoices = invoiceService.findAllV2();
 		if(CollectionUtils.isEmpty(invoices)) {
 			throw new RecordNotFoundException(InvoiceConstants.RECORD_NOT_FOUND);
@@ -74,7 +74,7 @@ public class InvoiceController {
 	
 	@RequestMapping(value = "/v1/{invoiceId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity getById(@PathVariable String invoiceId) {
-		LOGGER.info("get by ID version request initiated");
+		LOGGER.info(InvoiceConstants.MESSAGE_IMS_GET_BY_ID_V1);
 		InvoiceDTO invoiceDTO = invoiceService.findOne( Long.parseLong( invoiceId ) );
 		if(null == invoiceDTO) {
 			throw new RecordNotFoundException(InvoiceConstants.RECORD_NOT_FOUND);
@@ -83,14 +83,11 @@ public class InvoiceController {
 	}
 	@RequestMapping(value = "/v2/{invoiceId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity getByIdNew(@PathVariable String invoiceId) {
-		LOGGER.info("get by ID  version 2 request initiated");
+		LOGGER.info(InvoiceConstants.MESSAGE_IMS_GET_BY_ID_V2);
 		InvoiceDTO invoiceDTO = invoiceService.findOneV2( Long.parseLong( invoiceId ) );
 		if(null == invoiceDTO) {
 			throw new RecordNotFoundException(InvoiceConstants.RECORD_NOT_FOUND);
 		}
 		return ResponseEntity.ok(invoiceDTO);
 	}
-	
-	
-
 }

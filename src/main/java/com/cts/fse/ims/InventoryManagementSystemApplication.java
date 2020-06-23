@@ -1,4 +1,5 @@
 package com.cts.fse.ims;
+import com.cts.fse.ims.invoice.helper.InvoiceConstants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,7 @@ public class InventoryManagementSystemApplication {
 	private static final Logger LOGGER=LoggerFactory.getLogger(InventoryManagementSystemApplication.class);
 	public static void main(String[] args) {
 		SpringApplication.run(InventoryManagementSystemApplication.class, args);
-		LOGGER.info("Inventory application Started");
+		LOGGER.info(InvoiceConstants.MESSAGE_IMS_STARTED);
 	}
 	
 	@Bean

@@ -40,10 +40,18 @@ public class InvoiceController {
 	
 	@RequestMapping(value = "{invoiceId}", method = RequestMethod.DELETE)
 	public ResponseEntity delete(@PathVariable String invoiceId) {
-		LOGGER.info("detate request initiated");
+		LOGGER.info("delete request initiated");
 		invoiceService.delete( Long.parseLong( invoiceId ) );
 		return ResponseEntity.noContent().build();
 	}
+	
+	@RequestMapping(value = "", method = RequestMethod.DELETE)
+	public ResponseEntity deleteAll() {
+		LOGGER.info("delete all request initiated");
+		invoiceService.deleteAll();
+		return ResponseEntity.noContent().build();
+	}
+	
 	@RequestMapping(value = "/v1", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity get() {
 		LOGGER.info("get All for version 1 request initiated");

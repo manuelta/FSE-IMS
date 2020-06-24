@@ -78,7 +78,11 @@ public class InvoiceDTO {
 	}
 
 	public static InvoiceDTO of(Invoice invoice) {
-		return new InvoiceDTO( invoice.getId(), invoice.getName(), invoice.getDescription(), invoice.getAmount(), invoice.getCreated(), invoice.getUpdated() );
+		if(null != invoice) {
+			return new InvoiceDTO( invoice.getId(), invoice.getName(), invoice.getDescription(), invoice.getAmount(), invoice.getCreated(), invoice.getUpdated() );
+		} else {
+			return null;
+		}
 	}
 	
 }

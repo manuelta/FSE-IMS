@@ -35,20 +35,20 @@ public class InvoiceController {
 		return ResponseEntity.ok( invoiceService.save( invoiceDto ) );
 	}
 	
-	@PutMapping(value = "{invoiceId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/v1/{invoiceId}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<InvoiceDTO> update(@PathVariable String invoiceId, @RequestBody InvoiceDTO invoiceDto) {
 		LOGGER.info(InvoiceConstants.MESSAGE_IMS_UPDATE);
 		return ResponseEntity.ok( invoiceService.update( Long.parseLong( invoiceId ), invoiceDto ) );
 	}
 	
-	@DeleteMapping(value = "{invoiceId}")
+	@DeleteMapping(value = "/v1/{invoiceId}")
 	public ResponseEntity delete(@PathVariable String invoiceId) {
 		LOGGER.info(InvoiceConstants.MESSAGE_IMS_DELETE);
 		invoiceService.delete( Long.parseLong( invoiceId ) );
 		return ResponseEntity.noContent().build();
 	}
 	
-	@DeleteMapping(value = "")
+	@DeleteMapping(value = "/v1")
 	public ResponseEntity deleteAll() {
 		LOGGER.info(InvoiceConstants.MESSAGE_IMS_DELETE_ALL);
 		invoiceService.deleteAll();

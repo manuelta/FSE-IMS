@@ -1,10 +1,11 @@
 package com.cts.fse.ims.invoice.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.cts.fse.ims.invoice.model.Invoice;
 
-public class InvoiceDTO {
+public class InvoiceDTO implements Serializable{
 	private Long id;
 	private String name;
 	private String description;

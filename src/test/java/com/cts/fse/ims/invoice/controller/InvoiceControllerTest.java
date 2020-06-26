@@ -1,6 +1,7 @@
 package com.cts.fse.ims.invoice.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
@@ -16,6 +17,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import com.cts.fse.ims.invoice.dto.InvoiceDTO;
+import com.cts.fse.ims.invoice.exception.RecordNotFoundException;
 import com.cts.fse.ims.invoice.service.InvoiceService;
 
 @SpringBootTest
@@ -41,6 +43,17 @@ public class InvoiceControllerTest {
 		ResponseEntity<List<InvoiceDTO>> invoiceDtos = invoiceController.get();
 		assertThat(invoiceDtos).isNotNull();
 		assertEquals(200, invoiceDtos.getStatusCodeValue());
+    }
+	
+	@Test
+	public void testGetException() throws Exception {
+		List<InvoiceDTO> invoices = new ArrayList<InvoiceDTO>();		
+		when(invoiceService.findAll()).thenReturn(invoices);
+		try {
+		ResponseEntity<List<InvoiceDTO>> invoiceDtos = invoiceController.get();
+		} catch (RecordNotFoundException e ) {
+			assertThatExceptionOfType(RecordNotFoundException.class);
+		}
     }
 	
 	@Test

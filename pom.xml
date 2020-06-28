@@ -27,6 +27,8 @@
 		  <sonar.login>61c1e1f1ff6fd789223c0a12f05938bebd107727</sonar.login>
 		
 			<!-- test result measurements -->
+			<sonar.sources>src/main/java</sonar.sources>
+			<sonar.tests>src/test/java</sonar.tests>
 		<project.test.result.directory>${project.build.directory}/test-results</project.test.result.directory>
 		<sonar.java.codeCoveragePlugin>jacoco</sonar.java.codeCoveragePlugin>
 		<sonar.coverage.jacoco.xmlReportPaths>${project.test.result.directory}/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
@@ -141,6 +143,12 @@
 		    <groupId>redis.clients</groupId>
 		    <artifactId>jedis</artifactId>
 		</dependency>
+		<dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13</version>
+      <scope>test</scope>
+    </dependency>
 				
         <!--  <dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -170,20 +178,18 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven.shade.plugin</artifactId>
-				<version>3.2.4</version>
-				<configuration>
-					<createDependencyReducedPom>false</createDependencyReducedPom>
-					<shadeArtifactAttached>true</shadeArtifactAttached>
-					<shadeClassifierName>aws</shadeClassifierName>
-				</configuration>
-			</plugin>
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.0.0-M4</version>
+				<version>3.0.0-M5</version>
+                <dependencies>
+                    <dependency>
+        <groupId>org.apache.maven.surefire</groupId>
+        <artifactId>surefire-junit47</artifactId>
+        <version>3.0.0-M5</version>
+      </dependency>
+                </dependencies>
 				<configuration>
 					<argLine>${jacocoArgLine}</argLine>
 					<reportsDirectory>${project.test.result.directory}/surefire</reportsDirectory>

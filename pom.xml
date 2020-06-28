@@ -8,17 +8,29 @@
 		<version>2.3.0.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>com.cts.fse.ims</groupId>
 	<artifactId>InventoryManagementSystem</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>InventoryManagementSystem</name>
-	<description>Demo project for Spring Boot</description>
-
+	<description>Invoice project for Spring Boot</description>
+	<packaging>jar</packaging>
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Hoxton.SR5</spring-cloud.version>
 		<lombok.version>1.18.2</lombok.version>
-		<aws-java-sdk.version>1.11.750</aws-java-sdk.version>
+		<aws-java-sdk.version>1.11.750</aws-java-sdk.version>	
+		
+		
+		  <sonar.projectKey>FSE-IMS-M1</sonar.projectKey>
+		  <sonar.organization>manuelta</sonar.organization>
+		  <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		  <sonar.login>61c1e1f1ff6fd789223c0a12f05938bebd107727</sonar.login>
+		
+			<!-- test result measurements -->
+		<project.test.result.directory>${project.build.directory}/test-results</project.test.result.directory>
+		<sonar.java.codeCoveragePlugin>jacoco</sonar.java.codeCoveragePlugin>
+		<sonar.coverage.jacoco.xmlReportPaths>${project.test.result.directory}/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+			
 	</properties>
 
 	<dependencies>
@@ -55,6 +67,12 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-task</artifactId>
 		</dependency>
+		<dependency>
+		    <groupId>com.amazonaws.serverless</groupId>
+		    <artifactId>aws-serverless-java-container-springboot2</artifactId>
+		    <version>1.4</version>
+		</dependency>
+		
 		<dependency>
 		    <groupId>javax.persistence</groupId>
 		    <artifactId>persistence-api</artifactId>
@@ -105,6 +123,33 @@
             <artifactId>aws-java-sdk</artifactId>
             <version>${aws-java-sdk.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-lambda-java-events</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-lambda-java-core</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-function-adapter-aws</artifactId>
+        </dependency>
+        <dependency>
+		    <groupId>redis.clients</groupId>
+		    <artifactId>jedis</artifactId>
+		</dependency>
+				
+        <!--  <dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>  
+	    <dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency> -->
 	</dependencies>
 
 	<dependencyManagement>
@@ -124,6 +169,53 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven.shade.plugin</artifactId>
+				<version>3.2.4</version>
+				<configuration>
+					<createDependencyReducedPom>false</createDependencyReducedPom>
+					<shadeArtifactAttached>true</shadeArtifactAttached>
+					<shadeClassifierName>aws</shadeClassifierName>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M4</version>
+				<configuration>
+					<argLine>${jacocoArgLine}</argLine>
+					<reportsDirectory>${project.test.result.directory}/surefire</reportsDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.5</version>
+				<executions>
+					<execution>
+						<id>pre-test</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<propertyName>jacocoArgLine</propertyName>
+							<destFile>${project.test.result.directory}/jacoco/jacoco.exec</destFile>
+						</configuration>
+					</execution>
+					<execution>
+						<id>post-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<dataFile>${project.test.result.directory}/jacoco/jacoco.exec</dataFile>
+							<outputDirectory>${project.test.result.directory}/jacoco</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

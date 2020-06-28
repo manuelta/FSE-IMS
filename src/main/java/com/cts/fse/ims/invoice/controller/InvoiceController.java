@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.cts.fse.ims.invoice.dto.InvoiceDTO;
 import com.cts.fse.ims.invoice.exception.RecordNotFoundException;
@@ -23,6 +24,7 @@ import com.cts.fse.ims.invoice.helper.InvoiceConstants;
 import com.cts.fse.ims.invoice.service.InvoiceService;
 
 @RestController
+@EnableWebMvc
 @RequestMapping(value = "/invoice")
 public class InvoiceController {
 	@Autowired
